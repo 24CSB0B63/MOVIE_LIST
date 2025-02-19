@@ -126,13 +126,19 @@
         #clear-list-btn:hover {
             background-color: #FF2E1D;
         }
+
+        .movie-counter {
+            font-size: 18px;
+            color: white;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
 
     <h1>Movie List</h1>
-
+    <div class="movie-counter" id="movie-counter">Movies Count: 0</div>
     <input type="text" id="movie-input" placeholder="Enter movie title">
     <button id="add-movie-btn">Add Movie</button>
     <button id="clear-list-btn">Clear List</button>
@@ -140,9 +146,11 @@
     <ul id="movie-list">
     </ul>
 
+
     <script>
         let movies = [];
         const movieList = document.getElementById("movie-list");
+        const movieCounter = document.getElementById("movie-counter");
 
         function renderMovieList() {
             movieList.innerHTML = "";
@@ -154,6 +162,7 @@
                 });
                 movieList.appendChild(li);
             });
+            updateMovieCounter();  
         }
 
         function deleteMovie(index) {
@@ -164,6 +173,10 @@
         function clearMovieList() {
             movies = []; 
             renderMovieList(); 
+        }
+
+        function updateMovieCounter() {
+            movieCounter.textContent = `Movies Count: ${movies.length}`; 
         }
 
         renderMovieList();
@@ -188,4 +201,5 @@
         });
     </script>
 </body>
+
 </html>
