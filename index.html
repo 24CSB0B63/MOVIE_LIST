@@ -1,0 +1,191 @@
+<html>
+
+<head>
+    <title>Movie List</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-direction: column;
+            align-items: center;
+            background-color: #203846;
+        }
+
+        ul {
+            padding: 0;
+            text-align: center;
+            list-style-type: none;
+            display: flex;
+            flex-direction: column; 
+            gap: 10px;
+        }
+
+        li {
+            font-size: 18px;
+            margin: 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(21, 15, 35, 0.823);
+            animation: movChange 4s infinite;
+            border: 3px solid;
+            flex-grow: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        li:hover {
+            background-color: rgba(255, 0, 38, 0.378);
+            padding: 15px;
+            font-size: larger;
+            font-weight: bold;
+            transition: background-color 0.3s ease, padding 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+        }
+
+        h1 {
+            font-size: 45px;
+            margin-bottom: 20px;
+            animation: colChange 3s infinite;
+            padding: 10px;
+            background-color: rgb(79, 77, 77);
+            border-radius: 10px;
+            border: 6px solid;
+            border-color: #A8D8B9;
+        }
+
+        @keyframes colChange {
+            0% {
+                color: #A8D8B9;
+                border-color: #A8D8B9;
+            }
+            25% {
+                color: #A9CFE5;
+                border-color: #A9CFE5;
+            }
+            50% {
+                color: #FADADD;
+                border-color: #FADADD;
+            }
+            75% {
+                color: #F9E79F;
+                border-color: #F9E79F;
+            }
+            100% {
+                color: #A8D8B9;
+                border-color: #A8D8B9;
+            }
+        }
+
+        @keyframes movChange {
+            0% {
+                color: #00FFFF;
+                border-color: #00FFFF;
+            }
+            25% {
+                color: #39FF14;
+                border-color: #39FF14;
+            }
+            50% {
+                color: #FF007F;
+                border-color: #FF007F;
+            }
+            75% {
+                color: #FF5E00;
+                border-color: #FF5E00;
+            }
+            100% {
+                color: #00FFFF;
+                border-color: #00FFFF;
+            }
+        }
+
+        input,
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #clear-list-btn {
+            background-color: #FF5733;
+            color: white;
+            border: none;
+        }
+
+        #clear-list-btn:hover {
+            background-color: #FF2E1D;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Movie List</h1>
+
+    <input type="text" id="movie-input" placeholder="Enter movie title">
+    <button id="add-movie-btn">Add Movie</button>
+    <button id="clear-list-btn">Clear List</button>
+
+    <ul id="movie-list">
+    </ul>
+
+    <script>
+        let movies = ["movie1", "movie2", "movie3"];
+        const movieList = document.getElementById("movie-list");
+
+        function renderMovieList() {
+            movieList.innerHTML = "";
+            movies.forEach(function (movie, index) {
+                const li = document.createElement("li");
+                li.textContent = movie;
+                li.addEventListener("click", function () {
+                    deleteMovie(index);
+                });
+                movieList.appendChild(li);
+            });
+        }
+
+        function deleteMovie(index) {
+            movies.splice(index, 1);
+            renderMovieList();
+        }
+
+        function clearMovieList() {
+            movies = []; 
+            renderMovieList(); 
+        }
+
+        renderMovieList();
+
+        const addMovieBtn = document.getElementById("add-movie-btn");
+        const movieInput = document.getElementById("movie-input");
+        const clearListBtn = document.getElementById("clear-list-btn");
+
+        addMovieBtn.addEventListener("click", function () {
+            const newMovie = movieInput.value.trim();
+            if (newMovie) {
+                movies.push(newMovie);
+                renderMovieList();
+                movieInput.value = "";
+            } else {
+                alert("Please enter a movie title.");
+            }
+        });
+
+        clearListBtn.addEventListener("click", function () {
+            clearMovieList();  
+        });
+    </script>
+</body>
+</html>
